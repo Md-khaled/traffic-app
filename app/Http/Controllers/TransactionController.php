@@ -47,10 +47,9 @@ class TransactionController extends Controller
         $firstApiDomain = Config::get('app.api_domain');
         // Call the first API to simulate payment
         $request = Request::create('$firstApiDomain/mock-response', 'GET');
-//        $request->headers->add(['x-mock-status' => 'success']);
+        $request->headers->add(['x-mock-status' => 'success']);
         $response = Route::dispatch($request);
 
-        return $response;
         // Generate a unique transaction ID
         $transactionId = Str::uuid();
 
