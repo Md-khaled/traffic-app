@@ -21,7 +21,6 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->string('currency');
             $table->string('status');
-            $table->string('payment_method');
             $table->timestamps();
         });
     }

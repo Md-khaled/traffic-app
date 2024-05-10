@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 
@@ -46,8 +46,11 @@ class TransactionController extends Controller
         ]);
         $firstApiDomain = Config::get('app.api_domain');
         // Call the first API to simulate payment
-        $response = Http::withHeaders(['x-mock-status' => 'success'])->get("$firstApiDomain/mock-response");
+        $request = Request::create('$firstApiDomain/mock-response', 'GET');
+//        $request->headers->add(['x-mock-status' => 'success']);
+        $response = Route::dispatch($request);
 
+        return $response;
         // Generate a unique transaction ID
         $transactionId = Str::uuid();
 
